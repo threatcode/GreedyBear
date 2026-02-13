@@ -1,12 +1,17 @@
 name: CI
 
+# Trigger the workflow on push to pull request, as well as scheduled every 15 minutes
 on:
   pull_request:
     branches:
       - main
       - develop
 
-# discard previous execution if you commit to a branch that is already running
+  # Schedule to run every 15 minutes
+  schedule:
+    - cron: '*/15 * * * *'  # Runs every 15 minutes
+
+# Prevent multiple executions on the same branch
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -43,7 +48,6 @@ jobs:
       node_versions: >-
         ["20"]
       ubuntu_version: latest
-
 
   backend-tests:
      needs: detect-changes
