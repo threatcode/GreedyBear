@@ -29,7 +29,7 @@ vi.mock("../../../src/components/feeds/MultiSelectDropdown", () => {
   return { MultiSelectDropdown };
 });
 
-vi.mock("@certego/certego-ui", async (importOriginal) => {
+vi.mock("@greedybear/gb-ui", async (importOriginal) => {
   const originalModule = await importOriginal();
 
   const feeds = {
@@ -83,7 +83,7 @@ vi.mock("@certego/certego-ui", async (importOriginal) => {
 
     useDataTable: vi.fn(() => [
       feeds,
-      <MockTableComponent />,
+      <MockTableComponent key="mock-table" />,
       vi.fn(),
       vi.fn(),
     ]),
@@ -241,7 +241,7 @@ describe("Feeds component", () => {
     });
 
     test("selecting multiple types passes comma-separated feed_type to the table", async () => {
-      const { useDataTable } = await import("@certego/certego-ui");
+      const { useDataTable } = await import("@greedybear/gb-ui");
       const { user, feedTypeSelect } = await renderFeeds();
 
       await user.selectOptions(feedTypeSelect, ["cowrie", "honeytrap"]);
