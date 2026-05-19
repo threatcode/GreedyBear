@@ -102,6 +102,7 @@ select = [
     "NPY", # NumPy-specific rules
     "PD",  # pandas-vet
     "PERF",# Perflint
+    "PGH", # pygrep-hooks
     "PIE", # flake8-pie
     "PTH", # flake8-use-pathlib
     "RET", # flake8-return
@@ -109,6 +110,7 @@ select = [
     "S",   # flake8-bandit
     "SIM", # flake8-simplify
     "SLOT",# flake8-slots
+    "T20", # flake8-print
     "TC",  # flake8-type-checking
     "TD",  # flake8-todos
     "TID", # flake8-tidy-imports
@@ -132,10 +134,12 @@ ignore = [
 "tests/*" = ["S"]
 # Misinterpreted regex
 "greedybear/consts.py" = ["S105"]
-# Dummy key for certego-saas compatibility
-"greedybear/settings.py" = ["S105"]
+# Dummy key for certego-saas compatibility and useful print statements
+"greedybear/settings.py" = ["S105", "T201"]
 # String-based query (no equvalent ORM call exists)
 "greedybear/cronjobs/repositories/trending_bucket.py" = ["S608"]
+# Print statements
+"tests/test_runner.py" = ["T201"]
 
 [tool.ruff.lint.isort]
 known-first-party = [
