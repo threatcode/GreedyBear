@@ -645,18 +645,13 @@ def get_greedybear_news() -> list[dict]:
                     "subtext": subtext,
                 }
             )
-
+    except Exception:
+        logger.exception("Failed to fetch GreedyBear news from RSS feed")
+        return []
+    else:
         cache.set(
             CACHE_KEY_GREEDYBEAR_NEWS,
             news_items,
             CACHE_TIMEOUT_SECONDS,
         )
-
         return news_items
-
-    except Exception as exc:
-        logger.error(
-            "Failed to fetch GreedyBear news from RSS feed",
-            exc_info=exc,
-        )
-        return []

@@ -1,6 +1,6 @@
 [project]
 name = "greedybear"
-version = "3.5.0"
+version = "3.5.1"
 description = "Threat intelligence platform that extracts attack data from a T-Pot or a cluster of them and generates actionable live feeds."
 readme = "README.md"
 license = "MIT"
@@ -49,7 +49,7 @@ test = [
     "django-test-migrations==1.5.0",
 ]
 lint = [
-    "ruff==0.15.12",
+    "ruff==0.15.13",
 ]
 
 [tool.uv]
@@ -102,6 +102,7 @@ select = [
     "NPY", # NumPy-specific rules
     "PD",  # pandas-vet
     "PERF",# Perflint
+    "PGH", # pygrep-hooks
     "PIE", # flake8-pie
     "PTH", # flake8-use-pathlib
     "RET", # flake8-return
@@ -109,9 +110,11 @@ select = [
     "S",   # flake8-bandit
     "SIM", # flake8-simplify
     "SLOT",# flake8-slots
+    "T20", # flake8-print
     "TC",  # flake8-type-checking
     "TD",  # flake8-todos
     "TID", # flake8-tidy-imports
+    "TRY", # tryceratops
     "UP",  # pyupgrade
     "W",   # pycodestyle warnings
 ]
@@ -119,6 +122,7 @@ ignore = [
     "G004",   # allow use of f-strings in log messages for better readability
     "RUF012", # allow mutable-class-defaults (Django convention)
     "SIM108", # do not enforce use of ternary operator instead of if-else-block
+    "TRY003", # allow exception messages that are not defined in the exception class itself
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -130,10 +134,12 @@ ignore = [
 "tests/*" = ["S"]
 # Misinterpreted regex
 "greedybear/consts.py" = ["S105"]
-# Dummy key for certego-saas compatibility
-"greedybear/settings.py" = ["S105"]
+# Dummy key for certego-saas compatibility and useful print statements
+"greedybear/settings.py" = ["S105", "T201"]
 # String-based query (no equvalent ORM call exists)
 "greedybear/cronjobs/repositories/trending_bucket.py" = ["S608"]
+# Print statements
+"tests/test_runner.py" = ["T201"]
 
 [tool.ruff.lint.isort]
 known-first-party = [
